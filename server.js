@@ -1,9 +1,14 @@
 const express = require("express");
+// mysql://kt2wcwnexmwhlt74:yxla1pbv9univ8eg@lolyz0ok3stvj6f0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/x7dusx4em70m34y0
 
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
+const mysql = require("mysql");
+const config = require("./config.json").development;
 const PORT = process.env.PORT || 3001;
+
+console.log("CONFIG.JSON", config.host);
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -13,17 +18,29 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 // Add routes, both API and view
-app.use(routes);
+// app.use(routes);
 
 // Connect to the Mongo DB
-mongoose
-  .connect(
-    process.env.MONGODB_URI ||
-      "mongodb://user:Password1@ds255253.mlab.com:55253/heroku_2r65zjw3",
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log("MongoDb Connected!!!!"))
-  .catch(err => console.log(err));
+let connection = mysql.createConnection({
+  host: config.host,
+  user: config.username,
+  password: config.password,
+  database: config.database
+});
+connection.connect(err => {
+  if (err) {
+    return console.error("error" + err.message);
+  }
+  console.log("Connected to the MySQL server.");
+});
+
+let sql = "select * from books";
+connection.query(sql, (error, results, fields) => {
+  if (error) {
+    return console.error(error.message);
+  }
+  console.log("RESULTS", results);
+});
 
 // Start the API server
 app.listen(PORT, function() {
