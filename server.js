@@ -1,8 +1,5 @@
 const express = require("express");
-// mysql://kt2wcwnexmwhlt74:yxla1pbv9univ8eg@lolyz0ok3stvj6f0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/x7dusx4em70m34y0
 
-const mongoose = require("mongoose");
-const routes = require("./routes");
 const app = express();
 const mysql = require("mysql");
 const config = require("./config.json").development;
@@ -20,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 // app.use(routes);
 
-// Connect to the Mongo DB
+// Connect to the JawsDB MySQL
 let connection = mysql.createConnection({
   host: config.host,
   user: config.username,
