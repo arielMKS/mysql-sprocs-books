@@ -27,7 +27,7 @@ class Detail extends Component {
         <strong>{this.state.book.title}</strong> by:{" "}
         <span>{this.state.book.author}</span>
         <div>{this.state.book.synopsis}</div>
-        <button onClick={() => this.deleteBook(this.state.book._id)}>
+        <button onClick={() => this.deleteBook(this.state.book.bookid)}>
           Delete Book
         </button>
         <button onClick={() => this.props.history.push("/")}>Cancel</button>

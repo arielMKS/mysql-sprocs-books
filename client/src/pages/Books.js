@@ -25,15 +25,18 @@ class Books extends React.Component {
   };
 
   render() {
+    console.log("BOOKS STATE", this.state);
     return (
       <div>
         <List>
           {this.state.books.map(book => (
-            <ListItem key={book._id}>
+            <ListItem key={book.bookid}>
               <div>
                 <span style={{ color: "blue" }}>{book.title}</span>{" "}
                 <button
-                  onClick={() => this.props.history.push("/book/" + book._id)}
+                  onClick={() =>
+                    this.props.history.push("/book/" + book.bookid)
+                  }
                 >
                   Book Details
                 </button>

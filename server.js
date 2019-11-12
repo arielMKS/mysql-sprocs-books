@@ -16,10 +16,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// app.get("/api/books", (req, res) => {
-//   console.log("/api/books hit");
-// });
-
 // Add routes for API
 app.use(routes);
 
