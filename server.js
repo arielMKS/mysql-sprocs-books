@@ -1,12 +1,8 @@
 const express = require("express");
 
 const app = express();
-const mysql = require("mysql");
-const config = require("./config/config.json").development;
-const routes = require("./routes");
+const routes = require("./routes/api");
 const PORT = process.env.PORT || 3001;
-
-// console.log("CONFIG.JSON", config.host);
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -18,21 +14,6 @@ if (process.env.NODE_ENV === "production") {
 
 // Add routes for API
 app.use(routes);
-
-// THIS LOCAL CONNECTION WORKS
-// let connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "Password1",
-//   database: "booksdb"
-// });
-// connection.connect(function(err) {
-//   if (err) {
-//     return console.error("error: " + err.message);
-//   }
-
-//   console.log("Connected to the MySQL server.");
-// });
 
 // THIS REMOTE CONNECTION WORKS
 // Connect to the JawsDB MySQL
