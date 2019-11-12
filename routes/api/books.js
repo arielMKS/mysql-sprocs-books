@@ -1,8 +1,9 @@
 const router = require("express").Router();
 // const booksController = require("../../controllers/booksController");
 
-router.route("/", (req, res) => {
-  console.log("/api/books firing");
+router.get("/", (req, res) => {
+  console.log("/api/books firingggggggg");
+  res.json([]);
 });
 
 // Matches with "/api/books"

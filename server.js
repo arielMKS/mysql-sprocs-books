@@ -16,24 +16,29 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+// app.get("/api/books", (req, res) => {
+//   console.log("/api/books hit");
+// });
+
 // Add routes for API
 app.use(routes);
 
-let connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Password1",
-  database: "booksdb"
-});
-connection.connect(function(err) {
-  if (err) {
-    return console.error("error: " + err.message);
-  }
+// THIS LOCAL CONNECTION WORKS
+// let connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "Password1",
+//   database: "booksdb"
+// });
+// connection.connect(function(err) {
+//   if (err) {
+//     return console.error("error: " + err.message);
+//   }
 
-  console.log("Connected to the MySQL server.");
-});
+//   console.log("Connected to the MySQL server.");
+// });
 
-// THIS WORKS
+// THIS REMOTE CONNECTION WORKS
 // Connect to the JawsDB MySQL
 // let connection = mysql.createConnection({
 //   host: config.host,
@@ -48,13 +53,13 @@ connection.connect(function(err) {
 //   console.log("Connected to the MySQL server.");
 // });
 
-let sql = "select * from books";
-connection.query(sql, (error, results, fields) => {
-  if (error) {
-    return console.error(error.message);
-  }
-  // console.log("RESULTS",results);
-});
+// let sql = "select * from books";
+// connection.query(sql, (error, results, fields) => {
+//   if (error) {
+//     return console.error(error.message);
+//   }
+//   // console.log("RESULTS",results);
+// });
 
 // Start the API server
 app.listen(PORT, function() {
