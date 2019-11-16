@@ -7,8 +7,12 @@ const bookService = require("../../services/book.service");
 // get all
 router.get("/", (req, res) => {
   console.log("Routes get all");
-  // console.log(bookService.getAll());
-  res.json(bookService.getAll());
+  bookService
+    .getAll()
+    .then(results => {
+      res.status(200).json(results);
+    })
+    .catch(err => res.status(500));
 });
 
 // Matches with "/api/books"
