@@ -17,7 +17,8 @@ class Books extends React.Component {
   loadBooks = () => {
     API.getBooks()
       .then(res => {
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" });
+        console.log("RESULTS", res);
+        // this.setState({ books: res.data, title: "", author: "", synopsis: "" });
       })
       .catch(err => {
         console.log("Error on client", err);
