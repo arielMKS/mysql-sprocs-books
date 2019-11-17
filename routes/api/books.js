@@ -10,7 +10,8 @@ router.get("/", (req, res) => {
   bookService
     .getAll()
     .then(results => {
-      res.status(200).json(results);
+      console.log("");
+      // res.status(200).json(results);
     })
     .catch(err => res.status(500));
 });
