@@ -15,29 +15,6 @@ if (process.env.NODE_ENV === "production") {
 // Add routes for API
 app.use(routes);
 
-// THIS REMOTE CONNECTION WORKS
-// Connect to the JawsDB MySQL
-// let connection = mysql.createConnection({
-//   host: config.host,
-//   user: config.username,
-//   password: config.password,
-//   database: config.database
-// });
-// connection.connect(err => {
-//   if (err) {
-//     return console.error("error" + err.message);
-//   }
-//   console.log("Connected to the MySQL server.");
-// });
-
-// let sql = "select * from books";
-// connection.query(sql, (error, results, fields) => {
-//   if (error) {
-//     return console.error(error.message);
-//   }
-//   // console.log("RESULTS",results);
-// });
-
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

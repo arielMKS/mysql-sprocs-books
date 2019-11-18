@@ -10,28 +10,59 @@ const con = mysql.createConnection({
 });
 
 module.exports = {
-  // CREATE BOOK
-  CreateBook: function(author = "", title = "", sypnopsis = "", cb) {
-    console.log("Utils create book");
-
-    // THIS WORKS
+  //  POST
+  post: function(author, title, sypnopsis) {
     let query_str = "CALL CreateBook(?,?,?, @OUTPUTPARAM); SELECT @OUTPUTPARAM"; //
-    con.query(query_str, [author, title, sypnopsis], function(err, rows) {
-      if (err) throw err;
-      console.log("OUTPUTPARAM", rows[1][0]["@OUTPUTPARAM"]);
-      cb(rows);
-    });
-
-    // THIS WORKS
-    // let query_str = "CALL CreateBook(?,?,?, @OUTPUTPARAM); SELECT @OUTPUTPARAM"; //
-    // return con
-    //   .promise()
-    //   .query(query_str, [author, title, sypnopsis])
-    //   .then(([rows, fields]) => {
-    //     console.log("ROWS", rows[1][0]["@OUTPUTPARAM"]); // access id of new record
-    //     // return rows[1][0]["@OUTPUTPARAM"]; // return id of new record
-    //     cb(rows);
-    //   })
+    return con
+      .promise()
+      .query(query_str, [author, title, sypnopsis])
+      .then(([rows, fields]) => {
+        return rows[1][0]["@OUTPUTPARAM"]; // return the new record id
+      });
     //   .catch(err, console.log("Ariel", err));
+  },
+
+  // GET ALL
+  getAll: function() {
+    let query_str = "CALL GetAllBooks()";
+    return con
+      .promise()
+      .query(query_str)
+      .then(([rows, fields]) => {
+        return rows[0];
+      });
+  },
+
+  // GET BY ID
+  getById: function(id) {
+    let query_str = "CALL GetById(?)";
+    return con
+      .promise()
+      .query(query_str, [id])
+      .then(([rows, fields]) => {
+        return rows[0][0]; // return one record found, it's an object
+      });
+  },
+
+  // DELETE BOOK
+  del: function(id) {
+    let query_str = "CALL DeleteBook(?)";
+    return con
+      .promise()
+      .query(query_str, [id])
+      .then(([rows, fields]) => {
+        return rows;
+      });
+  },
+
+  // UPDATE BOOK
+  update: function(id, author, title, synopsis) {
+    let query_str = "CALL UpdateBook(?,?,?,?)";
+    return con
+      .promise()
+      .query(query_str, [id, author, title, synopsis])
+      .then(([rows, fields]) => {
+        return rows;
+      });
   }
 };
