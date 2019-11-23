@@ -18,7 +18,7 @@ class Books extends React.Component {
     API.getBooks()
       .then(res => {
         console.log("RESULTS", res);
-        // this.setState({ books: res.data, title: "", author: "", synopsis: "" });
+        this.setState({ books: res.data, title: "", author: "", synopsis: "" });
       })
       .catch(err => {
         console.log("Error on client", err);
@@ -27,8 +27,9 @@ class Books extends React.Component {
 
   render() {
     console.log("BOOKS STATE", this.state);
-    return (
-      <div>
+
+    if (this.state.books.length > 0) {
+      return (
         <List>
           {this.state.books.map(book => (
             <ListItem key={book.bookid}>
@@ -44,12 +45,21 @@ class Books extends React.Component {
               </div>
             </ListItem>
           ))}
+          <button onClick={() => this.props.history.push("/addbook")}>
+            Add Book
+          </button>
         </List>
-        <button onClick={() => this.props.history.push("/addbook")}>
-          Add Book
-        </button>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <List>
+          <h1>Uh oh, no boooks found in database...</h1>
+          <button onClick={() => this.props.history.push("/addbook")}>
+            Add Book
+          </button>
+        </List>
+      );
+    }
   }
 }
 

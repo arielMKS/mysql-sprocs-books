@@ -70,13 +70,3 @@ module.exports = {
       });
   }
 };
-
-// Matches with "/api/books/:id"
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-});
-
-// Matches with "/api/books/:id"
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-});
